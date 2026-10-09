@@ -1,0 +1,55 @@
+WIDE WORLD IMPORTERS - SOURCE DATA VALIDATION
+CSV files scanned: 29
+
+ROW COUNTS:
+Application\Application.Cities.csv: 37,940 rows; 0 duplicate keys; 0 malformed rows
+Application\Application.Countries.csv: 190 rows; 0 duplicate keys; 0 malformed rows
+Application\Application.DeliveryMethods.csv: 10 rows; 0 duplicate keys; 0 malformed rows
+Application\Application.PaymentMethods.csv: 4 rows; 0 duplicate keys; 0 malformed rows
+Application\Application.People.csv: 1,111 rows; 0 duplicate keys; 0 malformed rows
+Application\Application.StateProvinces.csv: 53 rows; 0 duplicate keys; 0 malformed rows
+Application\Application.TransactionTypes.csv: 13 rows; 0 duplicate keys; 0 malformed rows
+Purchasing\Purchasing.PurchaseOrderLines.csv: 8,367 rows; 0 duplicate keys; 0 malformed rows
+Purchasing\Purchasing.PurchaseOrders.csv: 2,074 rows; 0 duplicate keys; 0 malformed rows
+Purchasing\Purchasing.SupplierCategories.csv: 9 rows; 0 duplicate keys; 0 malformed rows
+Purchasing\Purchasing.Suppliers.csv: 13 rows; 0 duplicate keys; 0 malformed rows
+Purchasing\Purchasing.SupplierTransactions.csv: 2,438 rows; 0 duplicate keys; 0 malformed rows
+Sales\Sales.BuyingGroups.csv: 2 rows; 0 duplicate keys; 0 malformed rows
+Sales\Sales.CustomerCategories.csv: 8 rows; 0 duplicate keys; 0 malformed rows
+Sales\Sales.Customers.csv: 663 rows; 0 duplicate keys; 0 malformed rows
+Sales\Sales.CustomerTransactions.csv: 97,147 rows; 0 duplicate keys; 0 malformed rows
+Sales\Sales.InvoiceLines.csv: 228,265 rows; 0 duplicate keys; 0 malformed rows
+Sales\Sales.Invoices.csv: 70,510 rows; 0 duplicate keys; 0 malformed rows
+Sales\Sales.OrderLines.csv: 231,412 rows; 0 duplicate keys; 0 malformed rows
+Sales\Sales.Orders.csv: 73,595 rows; 0 duplicate keys; 0 malformed rows
+Warehouse\Warehouse.ColdRoomTemperatures.csv: 4 rows; 0 duplicate keys; 0 malformed rows
+Warehouse\Warehouse.Colors.csv: 36 rows; 0 duplicate keys; 0 malformed rows
+Warehouse\Warehouse.PackageTypes.csv: 14 rows; 0 duplicate keys; 0 malformed rows
+Warehouse\Warehouse.StockGroups.csv: 10 rows; 0 duplicate keys; 0 malformed rows
+Warehouse\Warehouse.StockItemHoldings.csv: 227 rows; 0 duplicate keys; 0 malformed rows
+Warehouse\Warehouse.StockItems.csv: 227 rows; 0 duplicate keys; 0 malformed rows
+Warehouse\Warehouse.StockItemStockGroups.csv: 442 rows; 0 duplicate keys; 0 malformed rows
+Warehouse\Warehouse.StockItemTransactions.csv: 236,667 rows; 0 duplicate keys; 0 malformed rows
+Warehouse\Warehouse.VehicleTemperatures.csv: 65,998 rows; 0 duplicate keys; 0 malformed rows
+
+ISSUES REPORTED: 0
+
+Note: date validation accepts both month/day/year and day/month/year. Ambiguous dates need source-format confirmation.
+Historical customer-key validation
+----------------------------------
+Order fact rows: 231,412
+Unmatched order lines: 656
+Unmatched order lines before customer account opening: 656
+Customers missing from OLTP for unmatched orders: 0
+
+Sales fact rows: 228,265
+Unmatched invoice lines: 646
+Unmatched invoice lines before customer account opening: 646
+Customers missing from OLTP for unmatched invoices: 0
+
+Conclusion:
+All unmatched customer keys are caused by transactions dated before
+the source customer's recorded account-opening date. The historical
+dimension lookup was retained rather than assigning an invalid customer
+version. These rows should be considered when interpreting customer-level
+analytics.
